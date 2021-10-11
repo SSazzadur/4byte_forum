@@ -12,7 +12,7 @@ export default function Home() {
     }, []);
 
     return (
-        <div className={styles.container}>
+        <div>
             <h1>Hello NEXT</h1>
         </div>
     );
