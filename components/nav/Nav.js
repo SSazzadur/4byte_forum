@@ -21,6 +21,8 @@ import {
     AppRegistration,
     Login,
 } from "@mui/icons-material";
+import RegisterModal from "../user/RegisterModal";
+import LoginModal from "../user/LoginModal";
 
 const Search = styled("div")(({ theme }) => ({
     position: "relative",
@@ -58,6 +60,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const MyProfile = () => {
     const [anchorEl, setAnchorEl] = useState(null);
     const [searchedValue, setSearchedValue] = useState("");
+    const [modalType, setModalType] = useState("");
+    const [openModal, setOpenModal] = useState(false);
+
     const open = Boolean(anchorEl);
 
     const handleClick = event => {
@@ -67,80 +72,108 @@ const MyProfile = () => {
         setAnchorEl(null);
     };
 
+    const handleOpenModal = type => {
+        setModalType(type);
+        setOpenModal(true);
+    };
+    const handleCloseModal = () => {
+        setModalType("");
+        setOpenModal(false);
+    };
+
     return (
-        <Box sx={{ boxShadow: "0 0 15px rgba(0,0,0,0.15)" }}>
-            <Toolbar>
-                <Typography
-                    component="div"
-                    variant="h4"
-                    sx={{ flexGrow: 1 }}
-                    color="seagreen"
-                >
-                    4BYTe
-                </Typography>
+        <>
+            <Box sx={{ boxShadow: "0 0 15px rgba(0,0,0,0.15)" }}>
+                <Toolbar>
+                    <Typography
+                        component="div"
+                        variant="h5"
+                        sx={{ flexGrow: 1 }}
+                        color="seagreen"
+                    >
+                        4BYTe
+                    </Typography>
 
-                <Search>
-                    <StyledInputBase
-                        placeholder="Search…"
-                        inputProps={{ "aria-label": "search" }}
-                        value={searchedValue}
-                        onChange={e => setSearchedValue(e.target.value)}
-                    />
-                    <Button sx={{ width: "12px" }} color="info">
-                        <SearchIcon />
-                    </Button>
-                </Search>
+                    <Search>
+                        <StyledInputBase
+                            placeholder="Search…"
+                            inputProps={{ "aria-label": "search" }}
+                            value={searchedValue}
+                            onChange={e => setSearchedValue(e.target.value)}
+                        />
+                        <Button sx={{ width: "12px" }} color="info">
+                            <SearchIcon />
+                        </Button>
+                    </Search>
 
-                <IconButton
-                    size="large"
-                    aria-label="display more actions"
-                    edge="end"
-                    color="inherit"
-                    onClick={handleClick}
+                    <IconButton
+                        size="large"
+                        aria-label="display more actions"
+                        edge="end"
+                        color="inherit"
+                        onClick={handleClick}
+                    >
+                        <MoreIcon />
+                    </IconButton>
+                </Toolbar>
+                <Menu
+                    id="basic-menu"
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    MenuListProps={{
+                        "aria-labelledby": "basic-button",
+                    }}
                 >
-                    <MoreIcon />
-                </IconButton>
-            </Toolbar>
-            <Menu
-                id="basic-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                MenuListProps={{
-                    "aria-labelledby": "basic-button",
-                }}
-            >
-                {true ? (
-                    <div>
-                        <MenuItem>
-                            <Login color="info" /> &nbsp; Login
-                        </MenuItem>
-                        <MenuItem>
-                            <AppRegistration color="success" /> &nbsp; Register
-                        </MenuItem>
-                    </div>
-                ) : (
-                    <div>
-                        <MenuItem>
-                            <AccountCircle color="primary" /> &nbsp;
-                            <Typography
-                                variant="h6"
-                                component="div"
-                                color="primary"
+                    {true ? (
+                        <div>
+                            <MenuItem onClick={() => handleOpenModal("login")}>
+                                <Login color="info" /> &nbsp; Login
+                            </MenuItem>
+                            <MenuItem
+                                onClick={() => handleOpenModal("register")}
                             >
-                                User Name
-                            </Typography>
-                        </MenuItem>
-                        <MenuItem>
-                            <AddBox color="info" /> &nbsp; Add Categories
-                        </MenuItem>
-                        <MenuItem>
-                            <LogoutIcon color="warning" /> &nbsp; Logout
-                        </MenuItem>
-                    </div>
-                )}
-            </Menu>
-        </Box>
+                                <AppRegistration color="success" /> &nbsp;
+                                Register
+                            </MenuItem>
+                        </div>
+                    ) : (
+                        <div>
+                            <MenuItem>
+                                <AccountCircle color="primary" /> &nbsp;
+                                <Typography
+                                    variant="h6"
+                                    component="div"
+                                    color="primary"
+                                >
+                                    User Name
+                                </Typography>
+                            </MenuItem>
+                            <MenuItem>
+                                <AddBox color="info" /> &nbsp; Add Categories
+                            </MenuItem>
+                            <MenuItem>
+                                <LogoutIcon color="warning" /> &nbsp; Logout
+                            </MenuItem>
+                        </div>
+                    )}
+                </Menu>
+            </Box>
+            {modalType === "register" && (
+                <RegisterModal
+                    openModal={openModal}
+                    handleCloseModal={handleCloseModal}
+                    setModalType={setModalType}
+                />
+            )}
+            {modalType === "login" && (
+                <LoginModal
+                    openModal={openModal}
+                    handleCloseModal={handleCloseModal}
+                    setModalType={setModalType}
+                />
+            )}
+        </>
     );
 };
 
