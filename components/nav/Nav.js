@@ -24,6 +24,10 @@ import {
 import RegisterModal from "../user/RegisterModal";
 import LoginModal from "../user/LoginModal";
 
+import { useDispatch, useSelector } from "react-redux";
+import { checkIsFormCompleted } from "../../redux/actions/userActions";
+import { showSnackBar } from "../../redux/actions/snackBarActions";
+
 const Search = styled("div")(({ theme }) => ({
     position: "relative",
     borderRadius: theme.shape.borderRadius,
@@ -62,6 +66,10 @@ const MyProfile = () => {
     const [searchedValue, setSearchedValue] = useState("");
     const [modalType, setModalType] = useState("");
     const [openModal, setOpenModal] = useState(false);
+    const dispatch = useDispatch();
+    const { currentUser, isFormCompleted } = useSelector(
+        state => state.userReducers
+    );
 
     const open = Boolean(anchorEl);
 
@@ -79,6 +87,18 @@ const MyProfile = () => {
     const handleCloseModal = () => {
         setModalType("");
         setOpenModal(false);
+    };
+
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+
+        dispatch(checkIsFormCompleted(!isFormCompleted));
+        const data = {
+            open: true,
+            message: "Logged out succeessful...",
+            variant: "success",
+        };
+        dispatch(showSnackBar(data));
     };
 
     return (
@@ -125,7 +145,7 @@ const MyProfile = () => {
                         "aria-labelledby": "basic-button",
                     }}
                 >
-                    {true ? (
+                    {!currentUser.isAuth ? (
                         <div>
                             <MenuItem onClick={() => handleOpenModal("login")}>
                                 <Login color="info" /> &nbsp; Login
@@ -146,13 +166,13 @@ const MyProfile = () => {
                                     component="div"
                                     color="primary"
                                 >
-                                    User Name
+                                    {currentUser.data.name}
                                 </Typography>
                             </MenuItem>
                             <MenuItem>
                                 <AddBox color="info" /> &nbsp; Add Categories
                             </MenuItem>
-                            <MenuItem>
+                            <MenuItem onClick={handleLogout}>
                                 <LogoutIcon color="warning" /> &nbsp; Logout
                             </MenuItem>
                         </div>

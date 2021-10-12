@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 
+import { useDispatch, useSelector } from "react-redux";
+import { showSnackBar } from "../../redux/actions/snackBarActions";
+import { checkIsFormCompleted } from "../../redux/actions/userActions";
+
 import {
     Modal,
     Typography,
@@ -10,6 +14,7 @@ import {
     useMediaQuery,
 } from "@mui/material";
 import { Login } from "@mui/icons-material";
+import axios from "axios";
 
 const style = {
     position: "absolute",
@@ -27,12 +32,68 @@ export default function LoginModal({
     handleCloseModal,
     setModalType,
 }) {
+    const dispatch = useDispatch();
+    const { isFormCompleted } = useSelector(state => state.userReducers);
+
     const isMobile = useMediaQuery("(max-width:600px)");
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const [isSent, setIsSent] = useState(false);
+
+    const handleLogin = async () => {
+        if (!email || !password) {
+            const data = {
+                open: true,
+                message: "Please fill all the fields...",
+                variant: "warning",
+            };
+            dispatch(showSnackBar(data));
+            return;
+        }
+
+        setIsSent(true);
+
+        try {
+            const response = await axios.post("/api/user/login", {
+                email,
+                password,
+            });
+
+            if (response.data.status === "success") {
+                const token = `Bearer ${response.data.token}`;
+                localStorage.setItem("token", token);
+
+                const data = {
+                    open: true,
+                    message: response.data.message,
+                    variant: response.data.status,
+                };
+                dispatch(showSnackBar(data));
+                setIsSent(false);
+
+                dispatch(checkIsFormCompleted(!isFormCompleted));
+                handleCloseModal();
+            } else {
+                const data = {
+                    open: true,
+                    message: response.data.message,
+                    variant: response.data.status,
+                };
+                dispatch(showSnackBar(data));
+                setIsSent(false);
+            }
+        } catch (error) {
+            const data = {
+                open: true,
+                message: "Something went wrong...",
+                variant: "error",
+            };
+            dispatch(showSnackBar(data));
+            setIsSent(false);
+        }
+    };
 
     return (
         <Modal
@@ -92,6 +153,7 @@ export default function LoginModal({
                             color="info"
                             endIcon={<Login />}
                             disabled={isSent}
+                            onClick={handleLogin}
                             fullWidth
                         >
                             Login
