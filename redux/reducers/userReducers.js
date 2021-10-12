@@ -13,16 +13,29 @@ const users = [
     },
 ];
 
-const userReducer = (state = [], action) => {
+const initState = {
+    currentUser: {
+        isAuth: false,
+    },
+    isFormCompleted: false,
+};
+
+const userReducers = (state = initState, action) => {
     switch (action.type) {
-        case types.FETCH_USERS:
+        case types.CHECK_USER_AUTH:
             return {
                 ...state,
-                users: users,
+                currentUser: action.payload,
+            };
+
+        case types.IS_FORM_COMPLETED:
+            return {
+                ...state,
+                isFormCompleted: action.payload,
             };
         default:
             return { ...state };
     }
 };
 
-export default userReducer;
+export default userReducers;

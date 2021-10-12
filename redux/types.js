@@ -1,1 +1,5 @@
 export const FETCH_USERS = "FETCH_USERS";
+export const SHOW_SNACKBAR = "SHOW_SNACKBAR";
+export const HIDE_SNACKBAR = "HIDE_SNACKBAR";
+export const CHECK_USER_AUTH = "CHECK_USER_AUTH";
+export const IS_FORM_COMPLETED = "IS_FORM_COMPLETED";

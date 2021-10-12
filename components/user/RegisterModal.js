@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
     Modal,
@@ -10,6 +11,9 @@ import {
     useMediaQuery,
 } from "@mui/material";
 import { AppRegistration } from "@mui/icons-material";
+import { showSnackBar } from "../../redux/actions/snackBarActions";
+import axios from "axios";
+import { checkIsFormCompleted } from "../../redux/actions/userActions";
 
 const style = {
     position: "absolute",
@@ -27,6 +31,9 @@ export default function RegisterModal({
     handleCloseModal,
     setModalType,
 }) {
+    const dispatch = useDispatch();
+    const { isFormCompleted } = useSelector(state => state.userReducers);
+
     const isMobile = useMediaQuery("(max-width:600px)");
 
     const [name, setName] = useState("");
@@ -35,6 +42,68 @@ export default function RegisterModal({
     const [passwordConfirm, setPasswordConfirm] = useState("");
 
     const [isSent, setIsSent] = useState(false);
+
+    const handleRegister = async () => {
+        if (!name || !email || !password || !passwordConfirm) {
+            const data = {
+                open: true,
+                message: "Please fill all the fields...",
+                variant: "warning",
+            };
+            dispatch(showSnackBar(data));
+            return;
+        }
+
+        if (password !== passwordConfirm) {
+            const data = {
+                open: true,
+                message: "Passwords do not match...",
+                variant: "error",
+            };
+            dispatch(showSnackBar(data));
+            return;
+        }
+        setIsSent(true);
+        try {
+            const response = await axios.post("/api/user/register", {
+                name,
+                email,
+                password,
+            });
+
+            if (response.data.status === "success") {
+                const token = `Bearer ${response.data.token}`;
+                localStorage.setItem("token", token);
+
+                const data = {
+                    open: true,
+                    message: response.data.message,
+                    variant: response.data.status,
+                };
+                dispatch(showSnackBar(data));
+                setIsSent(false);
+
+                dispatch(checkIsFormCompleted(!isFormCompleted));
+                handleCloseModal();
+            } else {
+                const data = {
+                    open: true,
+                    message: response.data.message,
+                    variant: response.data.status,
+                };
+                dispatch(showSnackBar(data));
+                setIsSent(false);
+            }
+        } catch (err) {
+            const data = {
+                open: true,
+                message: "Something went wrong",
+                variant: "error",
+            };
+            dispatch(showSnackBar(data));
+            setIsSent(false);
+        }
+    };
 
     return (
         <Modal
@@ -112,6 +181,7 @@ export default function RegisterModal({
                             color="info"
                             endIcon={<AppRegistration />}
                             disabled={isSent}
+                            onClick={handleRegister}
                             fullWidth
                         >
                             Register
