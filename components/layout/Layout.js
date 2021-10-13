@@ -1,11 +1,13 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useEffect } from "react";
 import Nav from "../nav/Nav";
 
+import { useDispatch, useSelector } from "react-redux";
+import { checkUserAuth } from "../../redux/actions/userActions";
+import { fetchCategories } from "../../redux/actions/categoryAcrtions";
 import { hideSnackBar } from "../../redux/actions/snackBarActions";
 
 import { Snackbar } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
-import { useDispatch, useSelector } from "react-redux";
 
 const Alert = forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -14,6 +16,19 @@ const Alert = forwardRef(function Alert(props, ref) {
 const Layout = ({ children }) => {
     const dispatch = useDispatch();
     const { snackbar } = useSelector(state => state);
+    const { isFormCompleted } = useSelector(state => state.userReducers);
+
+    useEffect(async () => {
+        if (localStorage.getItem("token") !== null) {
+            const token = localStorage.getItem("token");
+            dispatch(await checkUserAuth(token));
+        } else {
+            dispatch(await checkUserAuth(""));
+        }
+
+        dispatch(await fetchCategories());
+    }, [isFormCompleted]);
+
     return (
         <>
             <Nav />

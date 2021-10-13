@@ -12,6 +12,16 @@ const categoryReducers = (state = initState, action) => {
                 ...state,
                 categories: action.payload,
             };
+
+        case types.GET_CATEGORY_THREADS:
+            return {
+                ...state,
+                category: {
+                    ...action.payload.category,
+                    threads: action.payload.threads,
+                },
+            };
+
         default:
             return state;
     }

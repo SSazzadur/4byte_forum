@@ -24,7 +24,7 @@ const CategoryModal = ({ openModal, handleCloseModal }) => {
 
     const isMobile = useMediaQuery("(max-width:600px)");
 
-    const [catName, setCatTitle] = useState("");
+    const [catName, setCatName] = useState("");
     const [catDesc, setCatDesc] = useState("");
 
     const [isSent, setIsSent] = useState(false);
@@ -126,7 +126,7 @@ const CategoryModal = ({ openModal, handleCloseModal }) => {
                         type="text"
                         variant="standard"
                         value={catName}
-                        onChange={e => setCatTitle(e.target.value)}
+                        onChange={e => setCatName(e.target.value)}
                         required
                         fullWidth
                     />
