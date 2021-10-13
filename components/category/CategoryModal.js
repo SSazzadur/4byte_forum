@@ -16,17 +16,6 @@ import {
 import { Done } from "@mui/icons-material";
 import axios from "axios";
 
-const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    bgcolor: "background.paper",
-    boxShadow: 24,
-    borderRadius: 2,
-    p: 4,
-};
-
 const CategoryModal = ({ openModal, handleCloseModal }) => {
     const dispatch = useDispatch();
     const { currentUser, isFormCompleted } = useSelector(
@@ -98,7 +87,19 @@ const CategoryModal = ({ openModal, handleCloseModal }) => {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
         >
-            <Box sx={style}>
+            <Box
+                sx={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    width: isMobile ? "90%" : "auto",
+                    transform: "translate(-50%, -50%)",
+                    bgcolor: "background.paper",
+                    boxShadow: 24,
+                    borderRadius: 2,
+                    p: isMobile ? 2 : 4,
+                }}
+            >
                 <Typography
                     id="modal-modal-title"
                     variant="h6"
@@ -112,9 +113,7 @@ const CategoryModal = ({ openModal, handleCloseModal }) => {
                     component="form"
                     sx={{
                         width: isMobile ? "100%" : "25rem",
-                        padding: "1rem 2rem",
                         borderRadius: "10px",
-                        boxShadow: "0 0 25px rgba(0,0,0,0.1)",
                         "& > :not(style)": {
                             marginBlock: "0.5rem",
                         },

@@ -109,23 +109,22 @@ const MyProfile = () => {
         <>
             <Box sx={{ boxShadow: "0 0 15px rgba(0,0,0,0.15)" }}>
                 <Toolbar>
-                    <Link href="/">
-                        <Typography
-                            component="div"
-                            variant="h5"
-                            sx={{
-                                flexGrow: 1,
-                                cursor: "pointer",
-                                userSelect: "none",
-                                "&:hover": {
-                                    textShadow: "0 0 10px rgba(0,0,0,0.15)",
-                                },
-                            }}
-                            color="seagreen"
-                        >
-                            4BYTe
-                        </Typography>
-                    </Link>
+                    <Typography
+                        component="div"
+                        variant="h5"
+                        sx={{
+                            flexGrow: 1,
+                            userSelect: "none",
+                            "&:hover": {
+                                textShadow: "0 0 10px rgba(0,0,0,0.15)",
+                            },
+                        }}
+                        color="seagreen"
+                    >
+                        <Link href="/">
+                            <span style={{ cursor: "pointer" }}>4BYTe</span>
+                        </Link>
+                    </Typography>
 
                     <Search>
                         <StyledInputBase

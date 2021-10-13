@@ -112,7 +112,19 @@ export default function RegisterModal({
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
         >
-            <Box sx={style}>
+            <Box
+                sx={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    width: isMobile ? "90%" : "auto",
+                    transform: "translate(-50%, -50%)",
+                    bgcolor: "background.paper",
+                    boxShadow: 24,
+                    borderRadius: 2,
+                    p: isMobile ? 3 : 4,
+                }}
+            >
                 <Typography
                     id="modal-modal-title"
                     variant="h6"
@@ -126,9 +138,7 @@ export default function RegisterModal({
                     component="form"
                     sx={{
                         width: isMobile ? "100%" : "25rem",
-                        padding: "1rem 2rem",
                         borderRadius: "10px",
-                        boxShadow: "0 0 25px rgba(0,0,0,0.1)",
                         "& > :not(style)": {
                             marginBlock: "0.5rem",
                         },
