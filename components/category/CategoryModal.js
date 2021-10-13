@@ -13,7 +13,7 @@ import {
     TextField,
     useMediaQuery,
 } from "@mui/material";
-import { Done, Login } from "@mui/icons-material";
+import { Done } from "@mui/icons-material";
 import axios from "axios";
 
 const style = {
@@ -27,7 +27,7 @@ const style = {
     p: 4,
 };
 
-const CategoryModal = ({ openModal, handleCloseModal, setModalType }) => {
+const CategoryModal = ({ openModal, handleCloseModal }) => {
     const dispatch = useDispatch();
     const { currentUser, isFormCompleted } = useSelector(
         state => state.userReducers

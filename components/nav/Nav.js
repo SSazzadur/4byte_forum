@@ -212,7 +212,6 @@ const MyProfile = () => {
                 <CategoryModal
                     openModal={openModal}
                     handleCloseModal={handleCloseModal}
-                    setModalType={setModalType}
                 />
             )}
         </>
