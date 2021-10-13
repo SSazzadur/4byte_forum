@@ -12,6 +12,7 @@ const Alert = forwardRef(function Alert(props, ref) {
 });
 
 import styles from "../styles/Home.module.css";
+import { fetchCategories } from "../redux/actions/categoryAcrtions";
 
 export default function Home() {
     const dispatch = useDispatch();
@@ -19,6 +20,7 @@ export default function Home() {
     const { currentUser, isFormCompleted } = useSelector(
         state => state.userReducers
     );
+    const { categories } = useSelector(state => state.categoryReducers);
 
     useEffect(async () => {
         if (localStorage.getItem("token") !== null) {
@@ -27,6 +29,8 @@ export default function Home() {
         } else {
             dispatch(await checkUserAuth(""));
         }
+
+        dispatch(await fetchCategories());
     }, [isFormCompleted]);
 
     return (
@@ -36,6 +40,17 @@ export default function Home() {
             ) : (
                 <h1>Hello NEXT</h1>
             )}
+
+            <ul>
+                {categories &&
+                    categories.map(category => (
+                        <li key={category.cat_id}>
+                            {category.cat_name +
+                                " -> added By " +
+                                category.user_name}
+                        </li>
+                    ))}
+            </ul>
             <Snackbar
                 open={snackbar.open}
                 autoHideDuration={4000}

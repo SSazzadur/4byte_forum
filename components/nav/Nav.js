@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React, { useState } from "react";
 
 import { styled, alpha } from "@mui/material/styles";
@@ -27,6 +28,7 @@ import LoginModal from "../user/LoginModal";
 import { useDispatch, useSelector } from "react-redux";
 import { checkIsFormCompleted } from "../../redux/actions/userActions";
 import { showSnackBar } from "../../redux/actions/snackBarActions";
+import CategoryModal from "../category/CategoryModal";
 
 const Search = styled("div")(({ theme }) => ({
     position: "relative",
@@ -81,6 +83,7 @@ const MyProfile = () => {
     };
 
     const handleOpenModal = type => {
+        handleClose();
         setModalType(type);
         setOpenModal(true);
     };
@@ -90,12 +93,13 @@ const MyProfile = () => {
     };
 
     const handleLogout = () => {
+        handleClose();
         localStorage.removeItem("token");
 
         dispatch(checkIsFormCompleted(!isFormCompleted));
         const data = {
             open: true,
-            message: "Logged out succeessful...",
+            message: "Log out succeessful...",
             variant: "success",
         };
         dispatch(showSnackBar(data));
@@ -105,14 +109,23 @@ const MyProfile = () => {
         <>
             <Box sx={{ boxShadow: "0 0 15px rgba(0,0,0,0.15)" }}>
                 <Toolbar>
-                    <Typography
-                        component="div"
-                        variant="h5"
-                        sx={{ flexGrow: 1 }}
-                        color="seagreen"
-                    >
-                        4BYTe
-                    </Typography>
+                    <Link href="/">
+                        <Typography
+                            component="div"
+                            variant="h5"
+                            sx={{
+                                flexGrow: 1,
+                                cursor: "pointer",
+                                userSelect: "none",
+                                "&:hover": {
+                                    textShadow: "0 0 10px rgba(0,0,0,0.15)",
+                                },
+                            }}
+                            color="seagreen"
+                        >
+                            4BYTe
+                        </Typography>
+                    </Link>
 
                     <Search>
                         <StyledInputBase
@@ -169,7 +182,9 @@ const MyProfile = () => {
                                     {currentUser.data.name}
                                 </Typography>
                             </MenuItem>
-                            <MenuItem>
+                            <MenuItem
+                                onClick={() => handleOpenModal("category")}
+                            >
                                 <AddBox color="info" /> &nbsp; Add Categories
                             </MenuItem>
                             <MenuItem onClick={handleLogout}>
@@ -188,6 +203,13 @@ const MyProfile = () => {
             )}
             {modalType === "login" && (
                 <LoginModal
+                    openModal={openModal}
+                    handleCloseModal={handleCloseModal}
+                    setModalType={setModalType}
+                />
+            )}
+            {modalType === "category" && (
+                <CategoryModal
                     openModal={openModal}
                     handleCloseModal={handleCloseModal}
                     setModalType={setModalType}
