@@ -123,7 +123,7 @@ const ThreadForm = ({ cat_id }) => {
                     fullWidth
                 />
 
-                <Box sx={{ position: "relative" }}>
+                <Box sx={{ position: "relative", width: "fit-content" }}>
                     <Button
                         variant="contained"
                         color="info"
