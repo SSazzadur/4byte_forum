@@ -1,20 +1,10 @@
 import Link from "next/link";
 import React, { useState } from "react";
 
-import { styled, alpha } from "@mui/material/styles";
-import {
-    Button,
-    IconButton,
-    Menu,
-    MenuItem,
-    Toolbar,
-    Typography,
-    InputBase,
-} from "@mui/material";
+import { IconButton, Menu, MenuItem, Toolbar, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import LogoutIcon from "@mui/icons-material/Logout";
-import SearchIcon from "@mui/icons-material/Search";
 // import HelpCenterIcon from "@mui/icons-material/HelpCenter";
 import {
     AccountCircle,
@@ -30,42 +20,8 @@ import { checkIsFormCompleted } from "../../redux/actions/userActions";
 import { showSnackBar } from "../../redux/actions/snackBarActions";
 import CategoryModal from "../category/CategoryModal";
 
-const Search = styled("div")(({ theme }) => ({
-    position: "relative",
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.black, 0.05),
-    "&:hover": {
-        backgroundColor: alpha(theme.palette.common.black, 0.07),
-    },
-    marginLeft: 0,
-    width: "auto",
-    [theme.breakpoints.up("sm")]: {
-        marginLeft: theme.spacing(1),
-        width: "auto",
-    },
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: "inherit",
-    "& .MuiInputBase-input": {
-        padding: theme.spacing(1),
-        transition: theme.transitions.create("width"),
-        width: "10ch",
-        "&:focus": {
-            width: "15ch",
-        },
-        [theme.breakpoints.up("sm")]: {
-            width: "12ch",
-            "&:focus": {
-                width: "18ch",
-            },
-        },
-    },
-}));
-
 const MyProfile = () => {
     const [anchorEl, setAnchorEl] = useState(null);
-    const [searchedValue, setSearchedValue] = useState("");
     const [modalType, setModalType] = useState("");
     const [openModal, setOpenModal] = useState(false);
     const dispatch = useDispatch();
@@ -125,18 +81,6 @@ const MyProfile = () => {
                             <span style={{ cursor: "pointer" }}>4BYTe</span>
                         </Link>
                     </Typography>
-
-                    <Search>
-                        <StyledInputBase
-                            placeholder="Search…"
-                            inputProps={{ "aria-label": "search" }}
-                            value={searchedValue}
-                            onChange={e => setSearchedValue(e.target.value)}
-                        />
-                        <Button sx={{ width: "12px" }} color="info">
-                            <SearchIcon />
-                        </Button>
-                    </Search>
 
                     <IconButton
                         size="large"

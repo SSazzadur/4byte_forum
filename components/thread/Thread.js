@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React, { Fragment } from "react";
 
 import {
@@ -19,21 +20,26 @@ const Thread = ({ thread }) => {
                     <Avatar />
                 </ListItemAvatar>
                 <ListItemButton>
-                    <ListItemText
-                        primary={thread.thread_title}
-                        sx={{ color: "steelblue" }}
-                        secondary={
-                            <Fragment>
-                                <Typography
-                                    sx={{ display: "inline" }}
-                                    component="span"
-                                    variant="body2"
-                                >
-                                    Asked by: {thread.user_name}
-                                </Typography>
-                            </Fragment>
-                        }
-                    />
+                    <Link
+                        href="/threads/[thread_id]"
+                        as={`/threads/${thread.thread_id}`}
+                    >
+                        <ListItemText
+                            primary={thread.thread_title}
+                            sx={{ color: "steelblue" }}
+                            secondary={
+                                <Fragment>
+                                    <Typography
+                                        sx={{ display: "inline" }}
+                                        component="span"
+                                        variant="body2"
+                                    >
+                                        Asked by: {thread.user_name}
+                                    </Typography>
+                                </Fragment>
+                            }
+                        />
+                    </Link>
                 </ListItemButton>
             </ListItem>
             <Divider variant="inset" component="li" />

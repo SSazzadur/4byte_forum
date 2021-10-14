@@ -3,9 +3,10 @@ import * as types from "../types";
 const initState = {
     categories: [],
     category: {},
+    thread: {},
 };
 
-const categoryReducers = (state = initState, action) => {
+const dataReducers = (state = initState, action) => {
     switch (action.type) {
         case types.FETCH_CATEGORIES:
             return {
@@ -22,9 +23,18 @@ const categoryReducers = (state = initState, action) => {
                 },
             };
 
+        case types.GET_THREAD_DETAILS:
+            return {
+                ...state,
+                thread: {
+                    ...action.payload.thread,
+                    comments: action.payload.comments,
+                },
+            };
+
         default:
             return state;
     }
 };
 
-export default categoryReducers;
+export default dataReducers;

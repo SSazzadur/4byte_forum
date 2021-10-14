@@ -3,7 +3,7 @@ import Nav from "../nav/Nav";
 
 import { useDispatch, useSelector } from "react-redux";
 import { checkUserAuth } from "../../redux/actions/userActions";
-import { fetchCategories } from "../../redux/actions/categoryAcrtions";
+import { fetchCategories } from "../../redux/actions/dataActions";
 import { hideSnackBar } from "../../redux/actions/snackBarActions";
 
 import { Snackbar } from "@mui/material";

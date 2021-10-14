@@ -14,23 +14,24 @@ import { Done } from "@mui/icons-material";
 
 import { useDispatch, useSelector } from "react-redux";
 import { showSnackBar } from "../../redux/actions/snackBarActions";
-import { fetchCategoryThreads } from "../../redux/actions/dataActions";
+import { fetchThreadDetails } from "../../redux/actions/dataActions";
 
-const ThreadForm = ({ cat_id }) => {
+const CommentForm = ({ thread_id }) => {
     const dispatch = useDispatch();
     const isMobile = useMediaQuery("(max-width:600px)");
-    const { currentUser } = useSelector(state => state.userReducers);
+    const { currentUser, isFormCompleted } = useSelector(
+        state => state.userReducers
+    );
 
-    const [threadTitle, setThreadTitle] = useState("");
-    const [threadDesc, setThreadDesc] = useState("");
+    const [comment, setComment] = useState("");
 
     const [isSent, setIsSent] = useState(false);
 
-    const handleAddThread = async () => {
-        if (!threadTitle || !threadDesc) {
+    const handleAddComment = async () => {
+        if (!comment) {
             const data = {
                 open: true,
-                message: "Please fill all the fields...",
+                message: "Please write a comment post...",
                 variant: "warning",
             };
             dispatch(showSnackBar(data));
@@ -38,14 +39,14 @@ const ThreadForm = ({ cat_id }) => {
         }
 
         setIsSent(true);
+
         try {
-            const thread = {
-                thread_title: threadTitle,
-                thread_desc: threadDesc,
-                cat_id: cat_id,
+            const comm = {
+                comment,
+                thread_id,
                 user_id: currentUser.data.id,
             };
-            const response = await axios.post("/api/threads", thread);
+            const response = await axios.post("/api/comments", comm);
 
             if (response.data.status === "success") {
                 const data = {
@@ -57,10 +58,9 @@ const ThreadForm = ({ cat_id }) => {
                 setIsSent(false);
 
                 // clear form
-                setThreadTitle("");
-                setThreadDesc("");
+                setComment("");
 
-                dispatch(await fetchCategoryThreads(cat_id));
+                dispatch(await fetchThreadDetails(thread_id));
             } else {
                 const data = {
                     open: true,
@@ -89,7 +89,7 @@ const ThreadForm = ({ cat_id }) => {
                 component="h2"
                 color="teal"
             >
-                Start a new thread
+                Post a comment
             </Typography>
             <Box
                 component="form"
@@ -103,20 +103,11 @@ const ThreadForm = ({ cat_id }) => {
                 autoComplete="off"
             >
                 <TextField
-                    label="Thread Title"
+                    label="Write a comment"
                     type="text"
                     variant="standard"
-                    value={threadTitle}
-                    onChange={e => setThreadTitle(e.target.value)}
-                    required
-                    fullWidth
-                />
-                <TextField
-                    label="Thread Description"
-                    type="text"
-                    variant="standard"
-                    value={threadDesc}
-                    onChange={e => setThreadDesc(e.target.value)}
+                    value={comment}
+                    onChange={e => setComment(e.target.value)}
                     rows={4}
                     multiline
                     required
@@ -129,7 +120,7 @@ const ThreadForm = ({ cat_id }) => {
                         color="info"
                         endIcon={<Done />}
                         disabled={isSent}
-                        onClick={handleAddThread}
+                        onClick={handleAddComment}
                         sx={{ width: isMobile ? "100%" : "auto" }}
                     >
                         Submit
@@ -153,4 +144,4 @@ const ThreadForm = ({ cat_id }) => {
     );
 };
 
-export default ThreadForm;
+export default CommentForm;

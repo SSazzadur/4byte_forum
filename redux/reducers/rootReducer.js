@@ -2,12 +2,12 @@ import { combineReducers } from "redux";
 
 import snackBarReducers from "./snackBarReducers";
 import userReducers from "./userReducers";
-import categoryReducers from "./categoryReducers";
+import dataReducers from "./dataReducers";
 
 const rootReducer = combineReducers({
     snackbar: snackBarReducers,
     userReducers,
-    categoryReducers,
+    dataReducers,
 });
 
 export default rootReducer;

@@ -2,24 +2,25 @@ import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCategoryThreads } from "../../redux/actions/dataActions";
+import { fetchThreadDetails } from "../../redux/actions/dataActions";
 
 import { Box } from "@mui/system";
 import { Divider, Typography } from "@mui/material";
-import ThreadForm from "../../components/thread/ThreadForm";
-import Threads from "../../components/thread/Threads";
 
-const category = () => {
+import CommentForm from "../../components/comment/CommentForm";
+import Comments from "../../components/comment/Comments";
+
+const thread = () => {
     const router = useRouter();
     const dispatch = useDispatch();
 
-    const { cat_id } = router.query;
+    const { thread_id } = router.query;
 
     useEffect(async () => {
-        if (cat_id) dispatch(await fetchCategoryThreads(cat_id));
-    }, [cat_id]);
+        if (thread_id) dispatch(await fetchThreadDetails(thread_id));
+    }, [thread_id]);
 
-    const { category } = useSelector(state => state.dataReducers);
+    const { thread } = useSelector(state => state.dataReducers);
     const { currentUser } = useSelector(state => state.userReducers);
 
     return (
@@ -32,17 +33,17 @@ const category = () => {
                 }}
             >
                 <Typography
-                    variant="h3"
+                    variant="h4"
                     component="div"
                     sx={{ textAlign: "center" }}
                 >
-                    {category.cat_name}
+                    {thread.thread_title}
                 </Typography>
 
                 <Divider sx={{ marginBottom: "1rem" }} />
 
                 <Typography variant="body1" component="div">
-                    {category.cat_desc}
+                    {thread.thread_desc}
                 </Typography>
 
                 <Typography
@@ -50,9 +51,9 @@ const category = () => {
                     component="div"
                     sx={{ textAlign: "right", marginTop: "1rem" }}
                 >
-                    Category created by:{" "}
+                    Asked by:{" "}
                     <span style={{ fontWeight: "bolder" }}>
-                        {category.user_name}
+                        {thread.user_name}
                     </span>
                 </Typography>
 
@@ -60,16 +61,16 @@ const category = () => {
             </Box>
 
             {currentUser.isAuth ? (
-                <ThreadForm cat_id={cat_id} />
+                <CommentForm thread_id={thread_id} />
             ) : (
                 <Typography variant="body1" component="div" color="teal">
-                    You must be logged in to start a thread!
+                    You must be logged in to post a comment!
                 </Typography>
             )}
 
-            {category.threads && <Threads threads={category.threads} />}
+            {thread.comments && <Comments comments={thread.comments} />}
         </div>
     );
 };
 
-export default category;
+export default thread;

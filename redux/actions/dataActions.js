@@ -23,3 +23,16 @@ export const fetchCategoryThreads = async cat_id => {
         payload: { category: res.data.category, threads: res.data.threads },
     };
 };
+
+export const fetchThreadDetails = async thread_id => {
+    let res = {};
+
+    try {
+        res = await axios.get(`/api/threads/${thread_id}`);
+    } catch (error) {}
+
+    return {
+        type: types.GET_THREAD_DETAILS,
+        payload: { thread: res.data.thread, comments: res.data.comments },
+    };
+};
