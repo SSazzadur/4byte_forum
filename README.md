@@ -8,13 +8,7 @@
 
 </div>
 
-## Using -
-
-```
--> next.JS
--> node.JS
--> MySQL
-```
+## Using - `next.JS`, `node.JS`, `MySQL`
 
 ## <u>Made By - </u>
 
