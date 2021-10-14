@@ -10,8 +10,15 @@ export default function handler(req, res) {
                     status: "error",
                     message: "Internal server error",
                 });
-            } else {
+            } else if (result.length > 0) {
                 res.status(200).send(result);
+            } else {
+                res.send([
+                    {
+                        noresult: true,
+                        message: "Be the first one to create a category!",
+                    },
+                ]);
             }
         });
     } else if (req.method === "POST") {

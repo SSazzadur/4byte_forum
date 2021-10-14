@@ -35,7 +35,7 @@ export default function Home() {
                     <Skeleton
                         animation="wave"
                         variant="rectangular"
-                        height={118}
+                        height={150}
                     />
 
                     <Box sx={{ pt: 0.5 }}>
@@ -50,7 +50,7 @@ export default function Home() {
 
     return (
         <>
-            {categories.length === 0 ? (
+            {categories[0].noresult ? (
                 <Typography
                     id="modal-modal-title"
                     variant="h6"
