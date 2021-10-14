@@ -8,6 +8,7 @@ import { hideSnackBar } from "../../redux/actions/snackBarActions";
 
 import { Snackbar } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
+import Meta from "./Meta";
 
 const Alert = forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -31,6 +32,7 @@ const Layout = ({ children }) => {
 
     return (
         <>
+            <Meta />
             <Nav />
             <div style={{ width: "90%", margin: "0 auto" }}>
                 {children}

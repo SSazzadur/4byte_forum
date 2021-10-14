@@ -11,6 +11,7 @@ import {
     Typography,
     ListItemButton,
 } from "@mui/material";
+import { KeyboardArrowRight } from "@mui/icons-material";
 
 const Thread = ({ thread }) => {
     return (
@@ -19,11 +20,11 @@ const Thread = ({ thread }) => {
                 <ListItemAvatar>
                     <Avatar />
                 </ListItemAvatar>
-                <ListItemButton>
-                    <Link
-                        href="/threads/[thread_id]"
-                        as={`/threads/${thread.thread_id}`}
-                    >
+                <Link
+                    href="/threads/[thread_id]"
+                    as={`/threads/${thread.thread_id}`}
+                >
+                    <ListItemButton>
                         <ListItemText
                             primary={thread.thread_title}
                             sx={{ color: "steelblue" }}
@@ -39,8 +40,9 @@ const Thread = ({ thread }) => {
                                 </Fragment>
                             }
                         />
-                    </Link>
-                </ListItemButton>
+                        <KeyboardArrowRight fontSize="large" color="info" />
+                    </ListItemButton>
+                </Link>
             </ListItem>
             <Divider variant="inset" component="li" />
         </List>

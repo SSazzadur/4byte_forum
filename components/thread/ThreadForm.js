@@ -96,7 +96,7 @@ const ThreadForm = ({ cat_id }) => {
                 sx={{
                     width: "100%",
                     "& > :not(style)": {
-                        marginBlock: "0.5rem",
+                        marginBlock: "0 0.5rem",
                     },
                 }}
                 noValidate

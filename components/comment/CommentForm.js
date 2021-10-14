@@ -96,7 +96,7 @@ const CommentForm = ({ thread_id }) => {
                 sx={{
                     width: "100%",
                     "& > :not(style)": {
-                        marginBlock: "0.5rem",
+                        marginBlock: "0 0.5rem",
                     },
                 }}
                 noValidate
@@ -108,7 +108,7 @@ const CommentForm = ({ thread_id }) => {
                     variant="standard"
                     value={comment}
                     onChange={e => setComment(e.target.value)}
-                    rows={4}
+                    rows={3}
                     multiline
                     required
                     fullWidth
