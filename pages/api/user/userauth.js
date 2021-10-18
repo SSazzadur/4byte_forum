@@ -1,5 +1,6 @@
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
+const db = require("../_dbconnect");
 
 export default function userauth(req, res) {
     if (req.method === "GET") {
@@ -7,15 +8,21 @@ export default function userauth(req, res) {
 
         const token = authHeader && authHeader.split(" ")[1];
 
-        if (token == null) res.json({ status: "error", isAuth: false });
+        if (token == null) res.json({ isAuth: false });
 
         jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-            if (err) return res.json({ status: "warning", isAuth: false });
+            if (err) res.json({ status: "error", isAuth: false });
 
-            res.status(200).json({
-                status: "success",
-                isAuth: true,
-                data: user,
+            const sql = `SELECT * FROM users WHERE user_email='${user.email}'`;
+
+            db.query(sql, (error, result) => {
+                if (error) res.json({ isAuth: false });
+                else if (result.length > 0)
+                    res.status(200).json({
+                        isAuth: true,
+                        data: user,
+                    });
+                else res.json({ isAuth: false });
             });
         });
     }

@@ -7,12 +7,6 @@ const db = mysql.createConnection({
     database: "4byte_forum",
 });
 
-db.connect(err => {
-    if (err) {
-        console.log(err);
-    }
-
-    console.log("Connected to database");
-});
+db.connect();
 
 module.exports = db;
