@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { checkIsFormCompleted } from "../../redux/actions/userActions";
 import { showSnackBar } from "../../redux/actions/snackBarActions";
 import CategoryModal from "../category/CategoryModal";
+import Logo from "../Logo";
 
 const MyProfile = () => {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -65,22 +66,31 @@ const MyProfile = () => {
         <>
             <Box sx={{ boxShadow: "0 0 15px rgba(0,0,0,0.15)" }}>
                 <Toolbar>
-                    <Typography
-                        component="div"
-                        variant="h5"
-                        sx={{
-                            flexGrow: 1,
-                            userSelect: "none",
-                            "&:hover": {
-                                textShadow: "0 0 10px rgba(0,0,0,0.15)",
-                            },
-                        }}
-                        color="seagreen"
-                    >
-                        <Link href="/">
-                            <span style={{ cursor: "pointer" }}>4BYTe</span>
-                        </Link>
-                    </Typography>
+                    <Box sx={{ flexGrow: 1 }}>
+                        <Typography
+                            component="div"
+                            variant="h5"
+                            sx={{
+                                userSelect: "none",
+
+                                display: "flex",
+                                cursor: "pointer",
+                                width: "fit-content",
+
+                                "&:hover": {
+                                    textShadow: "0 0 10px rgba(0,0,0,0.15)",
+                                },
+                            }}
+                            color="seagreen"
+                        >
+                            <Link href="/">
+                                <>
+                                    <Logo />
+                                    BYTe
+                                </>
+                            </Link>
+                        </Typography>
+                    </Box>
 
                     <IconButton
                         size="large"
