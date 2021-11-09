@@ -23,7 +23,7 @@ const Thread = () => {
         };
 
         fetchThread();
-    }, [thread_id]);
+    }, [dispatch, thread_id]);
 
     const { thread } = useSelector(state => state.dataReducers);
     const { currentUser } = useSelector(state => state.userReducers);

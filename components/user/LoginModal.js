@@ -173,7 +173,7 @@ export default function LoginModal({
                     </Box>
 
                     <Typography variant="caption1">
-                        Don't have an account?{" "}
+                        Don&apos;t have an account?{" "}
                     </Typography>
                     <Button
                         variant="outlined"

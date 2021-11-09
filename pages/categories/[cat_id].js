@@ -17,13 +17,13 @@ const Category = () => {
 
     const { cat_id } = router.query;
 
-    useEffect(async () => {
+    useEffect(() => {
         const fetchData = async () => {
             if (cat_id) dispatch(await fetchCategoryThreads(cat_id));
         };
 
         fetchData();
-    }, [cat_id]);
+    }, [cat_id, dispatch]);
 
     const { category } = useSelector(state => state.dataReducers);
     const { currentUser } = useSelector(state => state.userReducers);

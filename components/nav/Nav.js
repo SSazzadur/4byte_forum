@@ -67,29 +67,27 @@ const MyProfile = () => {
             <Box sx={{ boxShadow: "0 0 15px rgba(0,0,0,0.15)" }}>
                 <Toolbar>
                     <Box sx={{ flexGrow: 1 }}>
-                        <Typography
-                            component="div"
-                            variant="h5"
-                            sx={{
-                                userSelect: "none",
+                        <Link href="/">
+                            <Typography
+                                component="div"
+                                variant="h5"
+                                sx={{
+                                    userSelect: "none",
 
-                                display: "flex",
-                                cursor: "pointer",
-                                width: "fit-content",
+                                    display: "flex",
+                                    cursor: "pointer",
+                                    width: "fit-content",
 
-                                "&:hover": {
-                                    textShadow: "0 0 10px rgba(0,0,0,0.15)",
-                                },
-                            }}
-                            color="seagreen"
-                        >
-                            <Link href="/">
-                                <>
-                                    <Logo />
-                                    BYTe
-                                </>
-                            </Link>
-                        </Typography>
+                                    "&:hover": {
+                                        textShadow: "0 0 10px rgba(0,0,0,0.15)",
+                                    },
+                                }}
+                                color="seagreen"
+                            >
+                                <Logo />
+                                BYTe
+                            </Typography>
+                        </Link>
                     </Box>
 
                     <IconButton
