@@ -11,7 +11,7 @@ import CommentForm from "../../components/comment/CommentForm";
 import Comments from "../../components/comment/Comments";
 import Meta from "../../components/layout/Meta";
 
-const thread = () => {
+const Thread = () => {
     const router = useRouter();
     const dispatch = useDispatch();
 
@@ -101,7 +101,7 @@ const thread = () => {
     );
 };
 
-export default thread;
+export default Thread;
 
 const LoadingComments = () => {
     return (

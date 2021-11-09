@@ -11,7 +11,7 @@ import ThreadForm from "../../components/thread/ThreadForm";
 import Threads from "../../components/thread/Threads";
 import Meta from "../../components/layout/Meta";
 
-const category = () => {
+const Category = () => {
     const router = useRouter();
     const dispatch = useDispatch();
 
@@ -103,7 +103,7 @@ const category = () => {
     );
 };
 
-export default category;
+export default Category;
 
 const LoadingThreads = () => {
     return (
