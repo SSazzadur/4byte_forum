@@ -18,13 +18,15 @@ const Category = () => {
     const { cat_id } = router.query;
 
     useEffect(async () => {
-        if (cat_id) dispatch(await fetchCategoryThreads(cat_id));
+        const fetchData = async () => {
+            if (cat_id) dispatch(await fetchCategoryThreads(cat_id));
+        };
+
+        fetchData();
     }, [cat_id]);
 
     const { category } = useSelector(state => state.dataReducers);
     const { currentUser } = useSelector(state => state.userReducers);
-
-    if (!category) return <Typography>Loading...</Typography>;
 
     return (
         <div style={{ paddingBottom: "2rem" }}>

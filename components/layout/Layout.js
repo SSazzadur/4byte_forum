@@ -12,15 +12,19 @@ const Layout = ({ children }) => {
     const dispatch = useDispatch();
     const { isFormCompleted } = useSelector(state => state.userReducers);
 
-    useEffect(async () => {
-        if (localStorage.getItem("token") !== null) {
-            const token = localStorage.getItem("token");
-            dispatch(await checkUserAuth(token));
-        } else {
-            dispatch(await checkUserAuth(""));
-        }
+    useEffect(() => {
+        const asyncFunc = async () => {
+            if (localStorage.getItem("token") !== null) {
+                const token = localStorage.getItem("token");
+                dispatch(await checkUserAuth(token));
+            } else {
+                dispatch(await checkUserAuth(""));
+            }
 
-        dispatch(await fetchCategories());
+            dispatch(await fetchCategories());
+        };
+
+        asyncFunc();
     }, [isFormCompleted]);
 
     return (

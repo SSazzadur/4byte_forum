@@ -23,6 +23,7 @@ const Thread = ({ thread }) => {
                 <Link
                     href="/threads/[thread_id]"
                     as={`/threads/${thread.thread_id}`}
+                    passHref
                 >
                     <ListItemButton>
                         <ListItemText

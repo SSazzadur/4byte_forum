@@ -11,7 +11,11 @@ import {
 
 const Category = ({ category }) => {
     return (
-        <Link href="/categories/[cat_id]" as={`/categories/${category.cat_id}`}>
+        <Link
+            href="/categories/[cat_id]"
+            as={`/categories/${category.cat_id}`}
+            passHref
+        >
             <CardActionArea>
                 <Card sx={{ height: "100%" }}>
                     <CardMedia

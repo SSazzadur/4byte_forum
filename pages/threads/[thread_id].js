@@ -17,8 +17,12 @@ const Thread = () => {
 
     const { thread_id } = router.query;
 
-    useEffect(async () => {
-        if (thread_id) dispatch(await fetchThreadDetails(thread_id));
+    useEffect(() => {
+        const fetchThread = async () => {
+            if (thread_id) dispatch(await fetchThreadDetails(thread_id));
+        };
+
+        fetchThread();
     }, [thread_id]);
 
     const { thread } = useSelector(state => state.dataReducers);
