@@ -12,7 +12,9 @@ const Meta = ({ title, keywords, description, author }) => {
             <meta name="keywords" content={keywords} />
             <meta name="description" content={description} />
             <meta name="author" content={author} />
-            <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+            <link rel="icon" href="/icons/favicon.ico" />
+            <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+            <link rel="manifest" href="/manifest.json" />
             <title>{title}</title>
         </Head>
     );
