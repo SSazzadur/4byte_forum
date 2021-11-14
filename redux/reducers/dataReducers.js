@@ -4,6 +4,11 @@ const initState = {
     categories: [],
     category: {},
     thread: {},
+    comment: {
+        edit: false,
+        text: "",
+        id: "",
+    },
 };
 
 const dataReducers = (state = initState, action) => {
@@ -30,6 +35,35 @@ const dataReducers = (state = initState, action) => {
                     ...action.payload.thread,
                     comments: action.payload.comments,
                 },
+            };
+
+        case types.OPEN_EDIT:
+            return {
+                ...state,
+                comment: {
+                    edit: true,
+                    text: action.payload.comment_text,
+                    id: action.payload.comment_id,
+                },
+            };
+        case types.CLOSE_EDIT:
+            return {
+                ...state,
+                comment: {
+                    edit: false,
+                    text: "",
+                    id: "",
+                },
+            };
+        case types.CLEAR_CATEGORY_THREADS:
+            return {
+                ...state,
+                category: {},
+            };
+        case types.CLEAR_THREAD_DETAILS:
+            return {
+                ...state,
+                thread: {},
             };
 
         default:

@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import { useSelector } from "react-redux";
 
 import {
     List,
@@ -10,7 +11,11 @@ import {
     Typography,
 } from "@mui/material";
 
+import CommentActions from "./CommentActions";
+
 const Comment = ({ comment }) => {
+    const { currentUser } = useSelector(state => state.userReducers);
+
     return (
         <List sx={{ width: "100%", bgcolor: "background.paper" }}>
             <ListItem alignItems="flex-start">
@@ -32,6 +37,7 @@ const Comment = ({ comment }) => {
                         </Fragment>
                     }
                 />
+                <CommentActions currentUser={currentUser} comment={comment} />
             </ListItem>
             <Divider variant="inset" component="li" />
         </List>

@@ -2,16 +2,16 @@ const db = require("./_dbconnect");
 
 export default function handler(req, res) {
     if (req.method === "POST") {
-        const { comment, thread_id, user_id } = req.body;
+        const { commentText, thread_id, user_id } = req.body;
 
         const sql = `INSERT INTO comments SET ?`;
-        const category = {
-            comment,
+        const comment = {
+            comment: commentText,
             thread_id,
             user_id,
         };
 
-        db.query(sql, category, (err, result) => {
+        db.query(sql, comment, (err, result) => {
             if (err) {
                 res.json({
                     status: "error",

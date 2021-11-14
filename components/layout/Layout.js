@@ -1,8 +1,13 @@
+import { useRouter } from "next/router";
 import { useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { checkUserAuth } from "../../redux/actions/userActions";
-import { fetchCategories } from "../../redux/actions/dataActions";
+import {
+    clearCategoryThreads,
+    clearThreadDetails,
+    fetchCategories,
+} from "../../redux/actions/dataActions";
 
 import SnackBar from "../alert/SnackBar";
 import Nav from "../nav/Nav";
@@ -26,6 +31,17 @@ const Layout = ({ children }) => {
 
         asyncFunc();
     }, [isFormCompleted]);
+
+    const router = useRouter();
+
+    useEffect(() => {
+        if (router.pathname === "/") {
+            dispatch(clearCategoryThreads());
+        }
+        if (router.pathname === "/categories/[cat_id]") {
+            dispatch(clearThreadDetails());
+        }
+    }, [router.pathname]);
 
     return (
         <>

@@ -5,14 +5,14 @@ export default function handler(req, res) {
         const { thread_title, thread_desc, cat_id, user_id } = req.body;
 
         const sql = `INSERT INTO threads SET ?`;
-        const category = {
+        const thread = {
             thread_title,
             thread_desc,
             cat_id,
             user_id,
         };
 
-        db.query(sql, category, (err, result) => {
+        db.query(sql, thread, (err, result) => {
             if (err) {
                 res.json({
                     status: "error",

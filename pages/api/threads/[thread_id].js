@@ -10,7 +10,7 @@ export default function handler(req, res) {
                 if (err) res.send(err);
                 else {
                     db.query(
-                        `SELECT c.comm_id, c.comment, u.user_name FROM comments c LEFT JOIN users u ON c.user_id=u.user_id WHERE c.thread_id=${thread_id}`,
+                        `SELECT c.comm_id, c.comment, c.user_id, c.thread_id, u.user_name FROM comments c LEFT JOIN users u ON c.user_id=u.user_id WHERE c.thread_id=${thread_id}`,
                         (err, comments) => {
                             if (err) res.send(err);
                             else {

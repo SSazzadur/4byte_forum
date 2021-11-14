@@ -36,3 +36,25 @@ export const fetchThreadDetails = async thread_id => {
         payload: { thread: res.data.thread, comments: res.data.comments },
     };
 };
+
+export const openEdit = (comment_text, comment_id) => {
+    return {
+        type: types.OPEN_EDIT,
+        payload: { comment_text, comment_id },
+    };
+};
+export const closeEdit = () => {
+    return {
+        type: types.CLOSE_EDIT,
+    };
+};
+export const clearCategoryThreads = () => {
+    return {
+        type: types.CLEAR_CATEGORY_THREADS,
+    };
+};
+export const clearThreadDetails = () => {
+    return {
+        type: types.CLEAR_THREAD_DETAILS,
+    };
+};
