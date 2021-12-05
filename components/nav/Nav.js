@@ -20,6 +20,10 @@ import { checkIsFormCompleted } from "../../redux/actions/userActions";
 import { showSnackBar } from "../../redux/actions/snackBarActions";
 import CategoryModal from "../category/CategoryModal";
 import Logo from "../Logo";
+import {
+    clearCategories,
+    fetchCategories,
+} from "../../redux/actions/dataActions";
 
 const MyProfile = () => {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -62,6 +66,11 @@ const MyProfile = () => {
         dispatch(showSnackBar(data));
     };
 
+    const toHomeHandler = async () => {
+        dispatch(clearCategories());
+        dispatch(await fetchCategories());
+    };
+
     return (
         <>
             <Box sx={{ boxShadow: "0 0 15px rgba(0,0,0,0.15)" }}>
@@ -83,6 +92,7 @@ const MyProfile = () => {
                                     },
                                 }}
                                 color="seagreen"
+                                onClick={toHomeHandler}
                             >
                                 <Logo />
                                 BYTe

@@ -58,3 +58,9 @@ export const clearThreadDetails = () => {
         type: types.CLEAR_THREAD_DETAILS,
     };
 };
+
+export const clearCategories = () => {
+    return {
+        type: types.CLEAR_CATEGORIES,
+    };
+};

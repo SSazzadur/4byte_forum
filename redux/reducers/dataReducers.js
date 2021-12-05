@@ -65,6 +65,11 @@ const dataReducers = (state = initState, action) => {
                 ...state,
                 thread: {},
             };
+        case types.CLEAR_CATEGORIES:
+            return {
+                ...state,
+                categories: [],
+            };
 
         default:
             return state;
