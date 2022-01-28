@@ -29,7 +29,13 @@ const Thread = () => {
     const { currentUser } = useSelector(state => state.userReducers);
 
     return (
-        <div style={{ paddingBottom: "2rem" }}>
+        <div
+            style={{
+                paddingBottom: "2rem",
+                maxWidth: "800px",
+                margin: "0 auto",
+            }}
+        >
             {thread.thread_title && (
                 <Meta title={thread.thread_title + " | 4BYTe Forum"} />
             )}

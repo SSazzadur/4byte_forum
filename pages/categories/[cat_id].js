@@ -29,7 +29,13 @@ const Category = () => {
     const { currentUser } = useSelector(state => state.userReducers);
 
     return (
-        <div style={{ paddingBottom: "2rem" }}>
+        <div
+            style={{
+                paddingBottom: "2rem",
+                maxWidth: "800px",
+                margin: "0 auto",
+            }}
+        >
             {category.cat_name && (
                 <Meta title={category.cat_name + " | 4BYTe Forum"} />
             )}
